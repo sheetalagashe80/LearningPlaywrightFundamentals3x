@@ -19,8 +19,19 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { analyzeFailure, type RcaVerdict } from '../ai/agents/rcaAgent';
 import { analyzeFlaky, type BuildSummary, type FlakyResult } from '../ai/agents/flakyAnalyzer';
-import { hasApiKey } from '../ai/config/providers';
 import type { HealReport } from './selfHeal';
+
+const hasApiKey = (): boolean => [
+    'OPENAI_API_KEY',
+    'ANTHROPIC_API_KEY',
+    'GOOGLE_API_KEY',
+    'GEMINI_API_KEY',
+    'OPENROUTER_API_KEY',
+    'GROQ_API_KEY',
+    'MISTRAL_API_KEY',
+    'DEEPSEEK_API_KEY',
+    'XAI_API_KEY',
+].some((key) => Boolean(process.env[key]));
 
 export interface StepData {
     title: string;
